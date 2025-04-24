@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPEND - Buy Anything You Need</title>
+    <title>SPEND - Digital Payment Solution</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #1a1a1a;
             margin: 0;
             padding: 0;
@@ -21,35 +21,29 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
-            animation: subtle-pulse 4s ease-in-out infinite;
+            margin-bottom: 40px;
         }
 
         h1 {
             font-size: 3rem;
             margin: 0;
-            background: linear-gradient(90deg, #a0a0a0, #e0e0e0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 5px;
             font-weight: 300;
+            letter-spacing: -1px;
+            color: #ffffff;
         }
 
         .tagline {
             font-size: 1rem;
             color: #a0a0a0;
-            margin-top: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            margin-top: 8px;
+            letter-spacing: 1px;
             font-weight: 300;
         }
 
         .card-container {
             position: relative;
-            width: 400px;
-            height: 250px;
+            width: 380px;
+            height: 240px;
             perspective: 1000px;
             margin: 30px auto;
             cursor: pointer;
@@ -61,8 +55,7 @@
             position: relative;
             transform-style: preserve-3d;
             transition: all 0.8s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 10px;
+            border-radius: 16px;
         }
 
         .card-container:hover .credit-card {
@@ -74,188 +67,190 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 10px;
+            border-radius: 16px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .card-front {
-            background: linear-gradient(135deg, #303030, #1a1a1a);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px;
-            color: #e0e0e0;
-            border: 1px solid #444;
+            padding: 24px;
         }
 
         .card-back {
-            background: #242424;
             transform: rotateY(180deg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e0e0e0;
-            font-size: 1.5rem;
-            border: 1px solid #444;
         }
 
         .card-logo {
-            font-size: 1.8rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            font-weight: 500;
             align-self: flex-end;
-            letter-spacing: 2px;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
         .card-number {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
             text-align: center;
             margin: 20px 0;
-            color: #a0a0a0;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+            font-weight: 300;
         }
 
         .card-details {
             display: flex;
             justify-content: space-between;
-        }
-
-        .card-holder, .expiry-date {
-            font-size: 0.9rem;
-            color: #a0a0a0;
+            font-size: 0.8rem;
+            color: #b0b0b0;
+            letter-spacing: 1px;
         }
 
         .cta-button {
-            background: linear-gradient(90deg, #606060, #808080);
-            border: none;
-            color: #e0e0e0;
-            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 14px 40px;
             font-size: 1rem;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 40px;
             transition: all 0.3s ease;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            background: linear-gradient(90deg, #707070, #909090);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .cta-button:active {
-            transform: translateY(1px);
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #707070;
-            border-radius: 0;
-            animation: fall 5s linear infinite;
-        }
-
-        @keyframes subtle-pulse {
-            0% { opacity: 0.9; }
-            50% { opacity: 1; }
-            100% { opacity: 0.9; }
-        }
-
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
+            transform: scale(0.98);
         }
 
         .fun-fact {
             margin-top: 30px;
-            font-style: italic;
             color: #707070;
             text-align: center;
-            max-width: 500px;
+            max-width: 400px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .chip {
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(135deg, #d9d9d9 0%, #a6a6a6 100%);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chip::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,0.3) 0%, 
+                rgba(255,255,255,0) 50%, 
+                rgba(255,255,255,0.3) 100%);
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>SPEND</h1>
-        <div class="tagline">Buy Anything You Need™</div>
+        <div class="tagline">DIGITAL PAYMENT SOLUTION</div>
     </div>
 
     <div class="card-container">
+        <div class="glow"></div>
         <div class="credit-card">
             <div class="card-front">
                 <div class="card-logo">$PEND</div>
-                <div class="card-number">••••  ••••  ••••  ••••</div>
+                <div class="chip"></div>
+                <div class="card-number">•••• •••• •••• ••••</div>
                 <div class="card-details">
-                    <div class="card-holder">AUTHORIZED USER</div>
-                    <div class="expiry-date">∞/∞</div>
+                    <div class="card-holder">CARDHOLDER</div>
+                    <div class="expiry-date">MM/YY</div>
                 </div>
             </div>
             <div class="card-back">
-                Just $SPEND it!
+                <div style="transform: rotate(180deg); font-weight: 300; letter-spacing: 1px;">SECURE DIGITAL PAYMENT</div>
             </div>
         </div>
     </div>
 
-    <button class="cta-button">$PEND NOW</button>
+    <button class="cta-button">INITIATE PAYMENT</button>
 
     <div class="fun-fact">
-        Warning: This is a real credit card so please do not spend much
+        Secure digital transaction platform with end-to-end encryption and biometric authentication
     </div>
 
     <script>
         document.querySelector('.cta-button').addEventListener('click', function() {
-            // Create geometric confetti (squares and lines for minimalist look)
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
+            // Create minimalist particles instead of confetti
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = '50vh';
+                particle.style.pointerEvents = 'none';
                 
-                // Grayscale colors only
-                const grayShade = Math.floor(Math.random() * 100) + 100;
-                confetti.style.backgroundColor = `rgb(${grayShade}, ${grayShade}, ${grayShade})`;
+                // Minimal animation
+                const animation = particle.animate([
+                    { transform: 'translateY(0) scale(1)', opacity: 1 },
+                    { transform: `translateY(${-Math.random() * 100 - 50}px) translateX(${(Math.random() - 0.5) * 100}px) scale(0.5)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 1000 + 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
                 
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                
-                // Mix of rectangles and lines
-                if (Math.random() > 0.5) {
-                    confetti.style.width = (Math.random() * 8 + 3) + 'px';
-                    confetti.style.height = confetti.style.width;
-                } else {
-                    confetti.style.width = (Math.random() * 15 + 5) + 'px';
-                    confetti.style.height = '1px';
-                }
-                
-                document.body.appendChild(confetti);
-                
-                // Remove confetti after animation
-                setTimeout(() => {
-                    confetti.remove();
-                }, 5000);
+                document.body.appendChild(particle);
+                animation.onfinish = () => particle.remove();
             }
 
-            // Pulse effect on the card
+            // Add subtle card animation
             const card = document.querySelector('.card-container');
-            card.style.animation = 'subtle-pulse 0.5s';
+            card.style.transform = 'scale(0.98)';
             setTimeout(() => {
-                card.style.animation = '';
-            }, 500);
+                card.style.transform = '';
+            }, 100);
         });
-
-        // Add pulse animation dynamically
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes subtle-pulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.02); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
