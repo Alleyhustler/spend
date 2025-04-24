@@ -10,8 +10,8 @@
             background-color: #1a1a1a;
             margin: 0;
             padding: 0;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -187,7 +187,62 @@
                 rgba(255,255,255,0) 50%, 
                 rgba(255,255,255,0.3) 100%);
         }
+        
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .social-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-button i {
+            font-size: 1.1rem;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #6e8efb 0%, #4a6cf7 100%);
+            border: none;
+            color: #ffffff;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 108, 247, 0.4);
+        }
+        
+        .buy-button:active {
+            transform: translateY(0);
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="header">
@@ -213,13 +268,28 @@
         </div>
     </div>
 
-<button class="cta-button" onclick="window.location.href='https://www.amazon.com/ref=nav_logo'">
-    INITIATE PAYMENT
-</button>
+    <button class="cta-button" onclick="window.location.href='https://www.amazon.com/ref=nav_logo'">
+        INITIATE PAYMENT
+    </button>
 
     <div class="fun-fact">
         Secure digital transaction platform with end-to-end encryption and biometric authentication
     </div>
+    
+    <div class="social-buttons">
+        <a href="https://x.com/spend_solana_" class="social-button" target="_blank">
+            <i class="fab fa-twitter"></i>
+            Twitter
+        </a>
+        <a href="@spendsolana" class="social-button" target="_blank">
+            <i class="fab fa-telegram-plane"></i>
+            Telegram
+        </a>
+    </div>
+    
+    <button class="buy-button" onclick="window.location.href='https://www.amazon.com/ref=nav_logo'">
+        BUY NOW
+    </button>
 
     <script>
         document.querySelector('.cta-button').addEventListener('click', function() {
