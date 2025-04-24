@@ -3,68 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy what you need $SPEND</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>$SPEND - Buy Anything You Need</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8a2be2, #4b0082);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            perspective: 1000px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .credit-card {
+            width: 300px;
+            height: 190px;
+            margin: 2rem auto;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .credit-card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+        
+        .credit-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+        
+        .credit-card-front, .credit-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .credit-card-front {
+            background: linear-gradient(45deg, #000000, #434343);
+            color: white;
+        }
+        
+        .credit-card-back {
+            background: linear-gradient(45deg, #333333, #111111);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .chip {
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #daa520, #ffd700);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-number {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        
+        .magnetic-strip {
+            background-color: #333;
+            height: 40px;
+            margin: 20px 0;
+        }
+        
+        .signature {
+            background-color: #fff;
+            height: 40px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .cvc {
+            position: absolute;
+            right: 20px;
+            bottom: 80px;
+            font-size: 1rem;
+        }
+        
+        .buy-button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff5f6d, #ffc371);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 95, 109, 0.4);
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 95, 109, 0.6);
+        }
+        
+        .buy-button:active {
+            transform: translateY(0);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+        
+        .money {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        .product-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            z-index: 10;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.5s;
+            color: #333;
+            max-width: 80%;
+        }
+        
+        .product-popup.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 5;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @keyframes flip {
+            0% { transform: rotateY(0); }
+            100% { transform: rotateY(180deg); }
+        }
+        
+        @keyframes unflip {
+            0% { transform: rotateY(180deg); }
+            100% { transform: rotateY(0); }
+        }
+        
+        .flip {
+            animation: flip 0.8s forwards;
+        }
+        
+        .unflip {
+            animation: unflip 0.8s forwards;
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .floating-text {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: bold;
+            opacity: 0;
+            color: #ffcc00;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-
-<header>
-    <div class="title">Buy what you need $SPEND</div>
-</header>
-
-<div class="scroll-down"></div>
-
-<!-- Image Container -->
-<div class="image-container">
-    <div class="card-content">
-        <h2>Buy what you need</h2>
-        <p>Here guys, buy what you want</p>
-    </div>
-    <img src="image-removebg-preview (8).png" alt="Memecoin Card" class="card-image">
-</div>
-
-<!-- About Us Section -->
-<section class="about-us">
-    <div class="about-title">About Us</div>
-    <p>We are giving chance to those jeeters who need to buy everything they want, just be holder of $SPEND as in change</p>
-</section>
-
-<!-- Tokenomics Section -->
-<section class="tokenomics">
-    <div class="tokenomics-title">Tokenomics</div>
-    <div class="tokenomics-content">
-        <div class="tokenomics-card">
-            <h3>Supply Distribution</h3>
-            <p>🔹 Total Supply: 1,000,000,000 $SPEND</p>
-            <p>🔹 Marketing: 5% (50,000,000 $SPEND)</p>
-            <p>🔹 Development: 5% (50,000,000 $SPEND)</p>
-            <p>🔹 Community Rewards: 30% (300,000,000 MEME)</p>
-            <p>🔹 Liquidity: 25% (250,000,000 MEME)</p>
+    <div class="container">
+        <h1>Buy Anything You Need</h1>
+        <h2>$SPEND</h2>
+        
+        <div class="credit-card" id="creditCard">
+            <div class="credit-card-inner" id="creditCardInner">
+                <div class="credit-card-front">
+                    <!-- Replace with your actual card image if you have one -->
+                    <!-- <img src="YOUR_CARD_IMAGE_PATH" alt="Credit Card" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;"> -->
+                    <!-- Or use the default styling below -->
+                    <div class="chip"></div>
+                    <div class="card-number">$PEND 4242 4242 4242</div>
+                    <div class="card-info">
+                        <span>CARD HOLDER</span>
+                        <span>EXPIRES</span>
+                    </div>
+                    <div class="card-info">
+                        <span>YOUR NAME</span>
+                        <span>∞/∞</span>
+                    </div>
+                </div>
+                <div class="credit-card-back">
+                    <div class="magnetic-strip"></div>
+                    <div class="signature">$PEND</div>
+                    <div class="cvc">$$$</div>
+                </div>
+            </div>
         </div>
-        <div class="tokenomics-card">
-            <h3>Utility</h3>
-            <p>🎮 First memecoin that allows you to buy everything you need</p>
-            <p>🎁 Exclusive Card for holders.</p>
-            <p>🔗 Access to premium content and features in the Memecoin.</p>
+        
+        <button class="buy-button" id="buyButton">BUY ANYTHING NOW!</button>
+        
+        <div class="footer">
+            *No actual purchase will be made. This is just a fun interactive page.
         </div>
     </div>
-</section>
-
-<!-- Socials Section -->
-<section class="socials">
-    <div class="socials-title">Join Us On</div>
-    <div class="socials-icons">
-        <a href="https://x.com/spend_coin_" target="_blank" class="social-icon" aria-label="Twitter">
-            <img src="twitter.png" alt="Twitter" />
-        </a>
-        <a href="https://t.me/+yGOEfFi4IwIyOWVk" target="_blank" class="social-icon" aria-label="Telegram">
-            <img src="telegram.png" alt="Telegram" />
-        </a>
+    
+    <div class="product-popup" id="productPopup">
+        <div class="popup-close" id="popupClose">×</div>
+        <h2>Congratulations!</h2>
+        <p>You just bought:</p>
+        <h3 id="productName">Amazing Product</h3>
+        <p>Price: <span id="productPrice">$9999.99</span></p>
+        <p>It will be delivered to you by the power of imagination!</p>
+        <button class="buy-button" id="popupButton">AWESOME!</button>
     </div>
-</section>
-
-<script src="script.js"></script>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <script>
+        // Credit card flip effect
+        const creditCard = document.getElementById('creditCard');
+        const creditCardInner = document.getElementById('creditCardInner');
+        let isFlipped = false;
+        
+        creditCard.addEventListener('click', () => {
+            if (isFlipped) {
+                creditCardInner.classList.remove('flip');
+                creditCardInner.classList.add('unflip');
+                isFlipped = false;
+            } else {
+                creditCardInner.classList.remove('unflip');
+                creditCardInner.classList.add('flip');
+                isFlipped = true;
+            }
+        });
+        
+        // Buy button effect
+        const buyButton = document.getElementById('buyButton');
+        const productPopup = document.getElementById('productPopup');
+        const popupClose = document.getElementById('popupClose');
+        const overlay = document.getElementById('overlay');
+        const popupButton = document.getElementById('popupButton');
+        const productName = document.getElementById('productName');
+        const productPrice = document.getElementById('productPrice');
+        
+        // Product ideas
+        const products = [
+            { name: "Personal Jet Pack", price: "$99,999.99" },
+            { name: "Invisible Cloak", price: "$8,799.99" },
+            { name: "Time Machine", price: "$1,000,000.00" },
+            { name: "Mind Reading Device", price: "$5,432.99" },
+            { name: "Teleportation Portal", price: "$77,777.77" },
+            { name: "Robot Butler", price: "$23,456.78" },
+            { name: "Endless Pizza Machine", price: "$4,999.95" },
+            { name: "Dream Recorder", price: "$12,345.67" },
+            { name: "Underwater Mansion", price: "$888,888.88" },
+            { name: "Pet Dragon", price: "$50,000.00" },
+            { name: "Cloud Castle", price: "$444,444.44" },
+            { name: "Shrink Ray", price: "$7,654.32" },
+            { name: "Anti-Gravity Boots", price: "$3,333.33" },
+            { name: "Private Island", price: "$15,000,000.00" },
+            { name: "Chocolate Fountain (Eternal)", price: "$2,222.22" }
+        ];
+        
+        function showPopup() {
+            const randomProduct = products[Math.floor(Math.random() * products.length)];
+            productName.textContent = randomProduct.name;
+            productPrice.textContent = randomProduct.price;
+            
+            productPopup.classList.add('active');
+            overlay.classList.add('active');
+            
+            // Create money effect
+            createMoneyEffect();
+            
+            // Create confetti effect
+            createConfetti();
+        }
+        
+        function closePopup() {
+            productPopup.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+        
+        buyButton.addEventListener('click', showPopup);
+        popupClose.addEventListener('click', closePopup);
+        popupButton.addEventListener('click', closePopup);
+        overlay.addEventListener('click', closePopup);
+        
+        // Money effect
+        function createMoneyEffect() {
+            const moneySymbols = ['💰', '💵', '💲', '🤑', '💸'];
+            
+            for (let i = 0; i < 20; i++) {
+                const money = document.createElement('div');
+                money.className = 'money';
+                money.textContent = moneySymbols[Math.floor(Math.random() * moneySymbols.length)];
+                money.style.left = Math.random() * window.innerWidth + 'px';
+                money.style.top = -100 + 'px';
+                document.body.appendChild(money);
+                
+                const fallDuration = Math.random() * 3 + 2;
+                const swayAmount = Math.random() * 50 - 25;
+                
+                money.style.transition = `top ${fallDuration}s linear, left ${fallDuration}s ease-in-out, opacity 0.5s`;
+                
+                setTimeout(() => {
+                    money.style.opacity = '1';
+                    money.style.top = window.innerHeight + 100 + 'px';
+                    money.style.left = parseFloat(money.style.left) + swayAmount + 'px';
+                }, 10);
+                
+                setTimeout(() => {
+                    document.body.removeChild(money);
+                }, fallDuration * 1000);
+            }
+        }
+        
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#ff5252', '#ffeb3b', '#2196f3', '#4caf50', '#e91e63', '#00bcd4'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = -10 + 'px';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(confetti);
+                
+                const fallDuration = Math.random() * 3 + 2;
+                const rotation = Math.random() * 360;
+                const swayAmount = Math.random() * 100 - 50;
+                
+                confetti.style.transition = `top ${fallDuration}s linear, left ${fallDuration}s ease-in-out, opacity 0.5s, transform ${fallDuration}s linear`;
+                
+                setTimeout(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `rotate(${rotation}deg)`;
+                    confetti.style.top = window.innerHeight + 10 + 'px';
+                    confetti.style.left = parseFloat(confetti.style.left) + swayAmount + 'px';
+                }, 10);
+                
+                setTimeout(() => {
+                    document.body.removeChild(confetti);
+                }, fallDuration * 1000);
+            }
+        }
+        
+        // Floating text effect on button hover
+        const floatingPhrases = ['Amazing!', 'Buy Now!', 'So Worth It!', 'Must Have!', 'Wow!', 'Yes!', 'Epic!'];
+        
+        buyButton.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.05) {
+                const floating = document.createElement('div');
+                floating.className = 'floating-text';
+                floating.textContent = floatingPhrases[Math.floor(Math.random() * floatingPhrases.length)];
+                
+                // Position near the mouse
+                const buttonRect = buyButton.getBoundingClientRect();
+                const offsetX = e.clientX - buttonRect.left;
+                const offsetY = e.clientY - buttonRect.top;
+                
+                floating.style.left = (e.clientX - 20) + 'px';
+                floating.style.top = (e.clientY - 20) + 'px';
+                
+                document.body.appendChild(floating);
+                
+                setTimeout(() => {
+                    floating.style.transition = 'opacity 1s, transform 1s';
+                    floating.style.opacity = '1';
+                    floating.style.transform = `translateY(-50px) scale(1.2)`;
+                }, 10);
+                
+                setTimeout(() => {
+                    floating.style.opacity = '0';
+                }, 700);
+                
+                setTimeout(() => {
+                    document.body.removeChild(floating);
+                }, 1500);
+            }
+        });
+    </script>
 </body>
 </html>
